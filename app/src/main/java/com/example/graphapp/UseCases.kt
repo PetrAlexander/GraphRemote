@@ -1,12 +1,13 @@
 package com.example.graphapp
 
 import android.content.Context
+import android.util.JsonReader
 import androidx.annotation.RawRes
+import java.io.InputStream
 
-fun readNavigationGraphFromJson(context: Context, @RawRes resourceId: Int): NavigationGraph? {
+fun readNavigationGraphFromJson(context: Context, @RawRes resourceId: Int): InputStream? {
     return try {
-        val inputStream = context.resources.openRawResource(resourceId)
-        Json.decodeFromStream(NavigationGraph.serializer(), inputStream)
+        context.resources.openRawResource(resourceId)
     } catch (e: Exception) {
         e.printStackTrace()
         null
