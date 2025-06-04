@@ -1,5 +1,19 @@
 package com.example.graphapp
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+
 @Composable
 fun SetupNavigation(navController: NavHostController, graph: NavigationGraph) {
     NavHost(
@@ -19,11 +33,10 @@ fun NavigationGraphScreen() {
     val context = LocalContext.current
     var graph by remember { mutableStateOf<NavigationGraph?>(null) }
     var errors by remember { mutableStateOf<List<String>>(emptyList()) }
-    val navController = rememberNavController()
 
     Column {
         Button(onClick = {
-            val loadedGraph = readNavigationGraphFromJson(context, R.raw.navigation_graph) // R.raw.navigation_graph - твой json файл
+            val loadedGraph = NavigationGraph(emptyList())
             if (loadedGraph != null) {
                 graph = loadedGraph
                 errors = analyzeNavigationGraph(loadedGraph)
@@ -39,7 +52,7 @@ fun NavigationGraphScreen() {
         }
 
         if (graph != null) {
-            SetupNavigation(navController = navController, graph = graph!!)
+            SetupNavigation(graph = graph!!)
         }
     }
 }
