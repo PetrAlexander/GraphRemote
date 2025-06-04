@@ -1,14 +1,6 @@
 package com.example.graphapp
 
 fun main() {
-    // Load configuration (choose ONE of these metrics backends based on your config)
-    val config = Properties() //Or fetch the config from application.properties
-    val metricsBackend = config.getProperty("metrics.backend", "console") // Default to console
-
-    val prometheusMetrics: PrometheusGraphRemoteMetrics? = if (metricsBackend == "prometheus") PrometheusGraphRemoteMetrics() else null
-    val statsDMetrics: StatsDGraphRemoteMetrics? = if (metricsBackend == "statsd") StatsDGraphRemoteMetrics() else null
-    //val logger = GraphNavigationLogger()
-
     fun executeQuery(query: String): List<String> {
         val startTime = System.currentTimeMillis()
 
